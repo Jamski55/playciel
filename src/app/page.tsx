@@ -1,10 +1,36 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function Home() {
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push('/fidelite')
+  }
+
+  useEffect(() => {
+    window.addEventListener('click', handleClick)
+    window.addEventListener('touchstart', handleClick)
+
+    return () => {
+      window.removeEventListener('click', handleClick)
+      window.removeEventListener('touchstart', handleClick)
+    }
+  }, [])
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-green-800 text-white">
-      <h1 className="text-4xl font-bold">Tailwind fonctionne 🎉</h1>
+    <main className="min-h-screen bg-white flex items-center justify-center">
+      <Image
+        src="/logo.png" // Mets ton logo ici (place-le dans public/logo.png)
+        alt="Logo Playciel"
+        width={200}
+        height={200}
+        className="animate-pulse"
+        priority
+      />
     </main>
-  );
+  )
 }

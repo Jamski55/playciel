@@ -32,6 +32,28 @@ module.exports = {
           red: '#e61e29',
         },
       },
+      keyframes: {
+        'flip-bounce': {
+          '0%': {
+            transform: 'translateY(0) rotateY(0deg)',
+          },
+          '20%': {
+            transform: 'translateY(-10px) rotateY(360deg)',
+          },
+          '40%': {
+            transform: 'translateY(0) rotateY(360deg)',
+          },
+          '70%': {
+            transform: 'translateY(-5px) rotateY(0deg)',
+          },
+          '100%': {
+            transform: 'translateY(0) rotateY(0deg)',
+          },
+        },
+      },
+      animation: {
+        'flip-bounce': 'flip-bounce 4s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

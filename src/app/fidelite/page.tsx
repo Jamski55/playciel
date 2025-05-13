@@ -25,7 +25,7 @@ export default function FidelitePage() {
 
   return (
     <main className="min-h-screen bg-logo-white flex flex-col items-center justify-center p-6">
-      <p className="mb-4 text-logo-skyBlue text-sm text-center">
+      <p className="mb-8 text-logo-skyBlue text-lg text-center">
         Vous êtes déjà client ? Scannez votre carte fidélité.
       </p>
 
@@ -93,7 +93,7 @@ export default function FidelitePage() {
         <div className="flex justify-between items-center">
           <button
             type="submit"
-            className="bg-logo-skyBlue text-white px-4 py-2 rounded hover:bg-logo-brightCyan transition-colors"
+            className="bg-logo-turquoiseBlue text-white px-4 py-2 rounded hover:bg-logo-brightCyan transition-colors"
           >
             Valider le formulaire
           </button>

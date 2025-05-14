@@ -50,9 +50,21 @@ module.exports = {
             transform: 'translateY(0) rotateY(0deg)',
           },
         },
+        'tremble': {
+          '0%, 100%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+          '25%': { transform: 'translate(-50%, -50%) rotate(5deg)' },
+          '50%': { transform: 'translate(-50%, -50%) rotate(-5deg)' },
+          '75%': { transform: 'translate(-50%, -50%) rotate(5deg)' },
+        },
+        'lot-grow': {
+          '0%': { transform: 'scale(0)', opacity: 0 },
+          '100%': { transform: 'scale(4)', opacity: 1 },
+        },
       },
       animation: {
         'flip-bounce': 'flip-bounce 4s ease-in-out infinite',
+        'tremble': 'tremble 0.5s ease',
+        'lot-grow': 'lot-grow 1s ease-out',
       },
     },
   },

@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes shake {
+  0%, 100% { transform: translate(-50%, -50%) rotateY(0deg); }
+  20%, 60% { transform: translate(-50%, -50%) rotateY(15deg); }
+  40%, 80% { transform: translate(-50%, -50%) rotateY(-15deg); }
+}
+
+.animate-shake {
+  animation: shake 1s ease-in-out;
+}
+
+@keyframes lot-grow {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-lot-grow {
+  animation: lot-grow 1.5s ease-out forwards;
+}

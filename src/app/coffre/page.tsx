@@ -2,69 +2,92 @@
 
 import React, { useState } from 'react';
 import styles from './coffre.module.css';
-import { lots, tirerAuSort } from './coffre';
+
+const coffres = ['/chest_close.png', '/chest_close.png', '/chest_close.png'];
+const lots = ['/jackpot.png', '/pen.png', '/red_cross.png'];
 
 export default function CoffrePage() {
-  const [selectedCoffre, setSelectedCoffre] = useState<number | null>(null);
-  const [opened, setOpened] = useState(false);
-  const [lot, setLot] = useState<{ nom: string; image: string } | null>(null);
-  const [showLot, setShowLot] = useState(false);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [ouvert, setOuvert] = useState(false);
+  const [lot, setLot] = useState<string | null>(null);
+  const [aDejaRejoue, setADejaRejoue] = useState(false);
+  const [coffresVisibles, setCoffresVisibles] = useState(true);
+  const [afficherLot, setAfficherLot] = useState(false);
+
+  // Exemple à adapter à ta logique réelle
+  const fideliteStatus: 'formulaire' | 'carte' | null = 'formulaire';
 
   const handleClick = (index: number) => {
-    if (selectedCoffre !== null) return;
+    if (selected !== null) return;
 
-    setSelectedCoffre(index);
+    setSelected(index);
 
     setTimeout(() => {
-      const tirage = tirerAuSort();
-      setOpened(true);
+      setOuvert(true);
 
       setTimeout(() => {
-        setLot(tirage);
-        setShowLot(true);
-      }, 600); // délai après l'ouverture du coffre
-    }, 800); // délai pour déplacement du coffre
+        const lotAleatoire = lots[Math.floor(Math.random() * lots.length)];
+        setLot(lotAleatoire);
+        setCoffresVisibles(false);
+        setAfficherLot(true); // lot s’affiche après disparition coffre
+      }, 500); // délai entre ouverture et lot
+    }, 1000); // délai avant ouverture
   };
 
-  const renderCoffre = (index: number) => {
-    const isSelected = selectedCoffre === index;
-
-    const coffreClasses = [
-      styles.coffre,
-      isSelected && styles.selected,
-      selectedCoffre !== null && !isSelected && styles.disparaitre,
-      isSelected && opened && styles.ouvert,
-      isSelected && !opened && styles.tremble,
-    ]
-      .filter(Boolean)
-      .join(' ');
-
-    return (
-      <div key={index} className={coffreClasses} onClick={() => handleClick(index)}>
-        <img
-          src="/chest_close.png"
-          alt={`Coffre ${index + 1}`}
-          className={styles.coffreImg}
-        />
-      </div>
-    );
+  const getTitre = () => {
+    if (!lot) return 'Choisis un coffre !';
+    if (lot === '/jackpot.png') return 'Vous avez gagné le jackpot !';
+    if (lot === '/pen.png') return 'Vous avez gagné !';
+    if (lot === '/red_cross.png') return 'Vous avez perdu...';
+    return 'Résultat';
   };
+
+  const handleRejouer = () => {
+    setSelected(null);
+    setOuvert(false);
+    setLot(null);
+    setAfficherLot(false);
+    setCoffresVisibles(true);
+    setADejaRejoue(true);
+  };
+
+  const peutRejouer =
+    lot === '/red_cross.png' &&
+    fideliteStatus !== null &&
+    !aDejaRejoue;
 
   return (
-    <div>
-      <h1>Choisissez un coffre</h1>
-      <div className={styles.container}>
-        {[0, 1, 2].map(renderCoffre)}
-      </div>
+    <div className={styles.container}>
+      <h1 className={styles.titre_coffre}>{getTitre()}</h1>
 
-      {lot && (
-        <div className={styles.lotContainer}>
-          <img
-            src={lot.image}
-            alt={lot.nom}
-            className={`${styles.lot} ${showLot ? 'afficher' : ''}`}
-          />
+      {coffresVisibles && (
+        <div className={styles.coffres}>
+          {coffres.map((src, index) => (
+            <img
+              key={index}
+              src={ouvert && selected === index ? '/chest_open.png' : src}
+              className={`
+                ${styles.coffre}
+                ${selected === index ? styles.tremble : ''}
+                ${selected !== null && selected !== index ? styles.fadeOut : ''}
+              `}
+              onClick={() => handleClick(index)}
+              alt="Coffre"
+            />
+          ))}
         </div>
+      )}
+
+      {afficherLot && lot && (
+        <div className={styles.lotContainer}>
+          <img src={lot} alt="Lot gagné" className={styles.lot} />
+        </div>
+      )}
+
+      {peutRejouer && (
+        <button onClick={handleRejouer} className={styles.rejouerBtn}>
+          Rejouer
+        </button>
       )}
     </div>
   );

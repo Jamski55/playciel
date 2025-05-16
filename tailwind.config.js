@@ -56,15 +56,15 @@ module.exports = {
           '50%': { transform: 'translate(-50%, -50%) rotate(-5deg)' },
           '75%': { transform: 'translate(-50%, -50%) rotate(5deg)' },
         },
-        'lot-grow': {
+        'grow': {
           '0%': { transform: 'scale(0)', opacity: 0 },
-          '100%': { transform: 'scale(4)', opacity: 1 },
+          '100%': { transform: 'scale(1)', opacity: 1 }, // scale(3) ou plus selon taille désirée
         },
       },
       animation: {
         'flip-bounce': 'flip-bounce 4s ease-in-out infinite',
         'tremble': 'tremble 0.5s ease',
-        'lot-grow': 'lot-grow 1s ease-out',
+        'grow': 'grow 1s ease-out forwards', // ← 'forwards' pour garder la taille finale
       },
     },
   },

@@ -1,78 +1,94 @@
-/* Style général */
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 80vh;
-  gap: 20px;
-  position: relative;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #76e4ff;
+  padding: 2rem;
+}
+
+.coffres {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .coffre {
   width: 150px;
-  height: 150px;
+  height: auto;
   cursor: pointer;
-  transition: transform 0.5s ease;
-}
-
-.coffre:hover {
-  transform: scale(1.1);
-}
-
-.coffreImg {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.disparaitre {
-  opacity: 0;
-  transform: scale(0.5);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.selected {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: top 0.8s ease, left 0.8s ease, transform 0.8s ease;
-  z-index: 10;
-}
-
-@keyframes tremblement {
-  0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-  25% { transform: translate(-50%, -50%) rotate(5deg); }
-  50% { transform: translate(-50%, -50%) rotate(-5deg); }
-  75% { transform: translate(-50%, -50%) rotate(5deg); }
+  transition: transform 0.3s ease, opacity 0.5s ease;
 }
 
 .tremble {
-  animation: tremblement 0.5s ease;
+  animation: tremble 0.5s ease;
 }
 
-.ouvert img {
-  content: url('/chest_open.png');
+.fadeOut {
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .lotContainer {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-  pointer-events: none;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* ou plus, selon besoin */
 }
 
 .lot {
-  width: 80px;
+  width: 200px;
   height: auto;
-  opacity: 0;
-  transition: transform 1s ease-out, opacity 0.5s ease;
-  position: absolute;
+  animation: grow 0.6s ease-out forwards;
 }
 
-.lot.afficher {
-  opacity: 1;
-  transform: scale(4);
+
+@keyframes tremble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.titre_coffre {
+  font-size: clamp(2rem, 2vw, 2rem);
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  text-align: center;
+  font-weight: 700; /* plus gras */
+  color: #0bc5ee; 
+  text-shadow: 1px 1px 4px #76e4ff; /* légère ombre bleue */
+}
+
+.rejouerBtn {
+  background-color: #01afeb; /* logo.brightCyan */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 8px rgba(1, 175, 235, 0.4);
+}
+
+.rejouerBtn:active {
+  background-color: #018fbe; /* Un bleu plus foncé */
+  box-shadow: none;
 }
